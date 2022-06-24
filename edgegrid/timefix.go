@@ -14,11 +14,21 @@ const (
 )
 
 var (
-	UseLocalTime bool = true
+	useLocalTime bool = true
 )
 
+func UseLocalTime(v bool) {
+	useLocalTime = v
+	switch {
+	case useLocalTime:
+		fmt.Fprintln(os.Stderr, "akamaiclient edgegrid.makeEdgeTimeStamp() using system clock")
+	default:
+		fmt.Fprintln(os.Stderr, "akamaiclient edgegrid.makeEdgeTimeStamp() using remote time fix")
+	}
+}
+
 func makeEdgeTimeStamp_TimeFix() string {
-	fmt.Fprintln(os.Stderr, "akamaiclient edgegrid.makeEdgeTimeStamp() using remote time fix")
+
 	resp, err := http.Get(akamaiTimeURL)
 	if err != nil {
 		panic(err)

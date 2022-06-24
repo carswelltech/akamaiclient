@@ -66,7 +66,7 @@ func AddRequestHeader(config Config, req *http.Request) *http.Request {
 // Must be assigned the UTC time when the request is signed.
 // Format of “yyyyMMddTHH:mm:ss+0000”
 func makeEdgeTimeStamp() string {
-	if UseLocalTime {
+	if useLocalTime {
 		local := time.FixedZone("GMT", 0)
 		t := time.Now().In(local)
 		return fmt.Sprintf("%d%02d%02dT%02d:%02d:%02d+0000",
